@@ -3,7 +3,7 @@ package domino;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface DominoRepository {
+public interface DominoService {
 
     List<String> symbolGenerator();
 

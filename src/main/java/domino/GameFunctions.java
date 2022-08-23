@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class GameFunctions implements DominoRepository {
+public class GameFunctions implements DominoService {
 
     Brick brick = new Brick();
 
