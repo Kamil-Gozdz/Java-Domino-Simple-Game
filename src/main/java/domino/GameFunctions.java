@@ -13,7 +13,7 @@ public class GameFunctions implements DominoService {
     public List<String> symbolGenerator() {
         List<String> symbols = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
+            for (int j = i; j < 7; j++) {
                 brick.setSymbol("|" + i + "|" + j + "|");
                 symbols.add(brick.getSymbol());
             }
@@ -58,21 +58,21 @@ public class GameFunctions implements DominoService {
     @Override
     public String chooseBrickForPlayerTwo(ArrayList<String> bricksForPlayerTwo) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Player 1 choose brick by typing number: ");
+        System.out.println("Player 2 choose brick by typing number: ");
         System.out.println(bricksForPlayerTwo);
         int index = scanner.nextInt();
-        System.out.println("Player 1 choose " + bricksForPlayerTwo.get(index));
+        System.out.println("Player 2 choose " + bricksForPlayerTwo.get(index));
         return bricksForPlayerTwo.remove(index);
     }
 
     @Override
     public String addingPlayerOneBrickToBoard(String chosenBrickFromPlayerOne, String board) {
         int lastPosition = board.length() - 2;
-        if (board.isBlank()) {
+        if (board.isEmpty()) {
             System.out.println("Added " + chosenBrickFromPlayerOne + " to the board");
             return board + chosenBrickFromPlayerOne;
         }
-        boolean brickMatcherZero = chosenBrickFromPlayerOne.charAt(1) == chosenBrickFromPlayerOne.charAt(3);
+        boolean brickMatcherZero = chosenBrickFromPlayerOne.charAt(1) == board.charAt(3);
         boolean brickMatcherOne = chosenBrickFromPlayerOne.charAt(1) == board.charAt(1);
         boolean brickMatcherTwo = chosenBrickFromPlayerOne.charAt(3) == board.charAt(lastPosition);
         boolean brickMatcherThree = chosenBrickFromPlayerOne.charAt(1) == board.charAt(lastPosition);
@@ -113,11 +113,8 @@ public class GameFunctions implements DominoService {
     @Override
     public String addingPlayerTwoBrickToBoard(String chosenBrickFromPlayerTwo, String board) {
         int lastPosition = board.length() - 2;
-        if (board.isBlank()) {
-            System.out.println("Added " + chosenBrickFromPlayerTwo + " to the board");
-            return board + chosenBrickFromPlayerTwo;
-        }
-        boolean brickMatcherZero = chosenBrickFromPlayerTwo.charAt(1) == chosenBrickFromPlayerTwo.charAt(3);
+
+        boolean brickMatcherZero = chosenBrickFromPlayerTwo.charAt(1) == board.charAt(3);
         boolean brickMatcherOne = chosenBrickFromPlayerTwo.charAt(1) == board.charAt(1);
         boolean brickMatcherTwo = chosenBrickFromPlayerTwo.charAt(3) == board.charAt(lastPosition);
         boolean brickMatcherThree = chosenBrickFromPlayerTwo.charAt(1) == board.charAt(lastPosition);
@@ -157,7 +154,7 @@ public class GameFunctions implements DominoService {
 
     @Override
     public String flipSymbolsPlayerOne(String chosenBrickFromPlayerOne) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(chosenBrickFromPlayerOne);
         sb.setCharAt(1, chosenBrickFromPlayerOne.charAt(3));
         sb.setCharAt(3, chosenBrickFromPlayerOne.charAt(1));
         return sb.toString();
@@ -166,7 +163,7 @@ public class GameFunctions implements DominoService {
 
     @Override
     public String flipSymbolsPlayerTwo(String chosenBrickFromPlayerTwo) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(chosenBrickFromPlayerTwo);
         sb.setCharAt(1, chosenBrickFromPlayerTwo.charAt(3));
         sb.setCharAt(3, chosenBrickFromPlayerTwo.charAt(1));
         return sb.toString();

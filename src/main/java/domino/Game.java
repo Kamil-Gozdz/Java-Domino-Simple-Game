@@ -19,33 +19,36 @@ public class Game {
         gf.shuffleSymbols(symbols);
         ArrayList<String> bricksForPlayerOne = gf.dealBricksForPlayerOne(symbols);
         ArrayList<String> bricksForPlayerTwo = gf.dealBricksForPlayerTwo(symbols);
-        while ((bricksForPlayerOne.size() != 0 && bricksForPlayerTwo.size() != 0) || symbols.size() != 0) {
+        while ((bricksForPlayerOne.size() != 0 && bricksForPlayerTwo.size() != 0) && symbols.size() != 0) {
             if (!gf.choosingActionPlayerOne(symbols, bricksForPlayerOne)) {
                 String chosenBrickFromPlayerOne = gf.chooseBrickForPlayerOne(bricksForPlayerOne);
-                board = gf.addingPlayerOneBrickToBoard(board, chosenBrickFromPlayerOne);
+                board = gf.addingPlayerOneBrickToBoard(chosenBrickFromPlayerOne, board);
             }
             System.out.println("-----------------------------------------------------------------------");
             System.out.println(board);
             System.out.println("-----------------------------------------------------------------------");
             if (!gf.choosingActionPlayerTwo(symbols, bricksForPlayerTwo)) {
                 String chosenBrickFromPlayerTwo = gf.chooseBrickForPlayerTwo(bricksForPlayerTwo);
-                board = gf.addingPlayerTwoBrickToBoard(board, chosenBrickFromPlayerTwo);
+                board = gf.addingPlayerTwoBrickToBoard(chosenBrickFromPlayerTwo, board);
             }
             System.out.println("-----------------------------------------------------------------------");
             System.out.println(board);
             System.out.println("-----------------------------------------------------------------------");
         }
-        if (bricksForPlayerOne.size() == bricksForPlayerTwo.size()) {
-            System.out.println("It's a tie!");
-        } else if (bricksForPlayerOne.size() > bricksForPlayerTwo.size()) {
-            System.out.println("Player 1 wins!");
+        if (symbols.size() == 0) {
+            if (bricksForPlayerOne.size() == bricksForPlayerTwo.size()) {
+                System.out.println("It's a tie!");
+            } else if (bricksForPlayerOne.size() > bricksForPlayerTwo.size()) {
+                System.out.println("Player 1 wins!");
+            } else {
+                System.out.println("Player 2 wins!");
+            }
         } else {
-            System.out.println("Player 2 wins!");
-        }
-        if(bricksForPlayerOne.size() == 0 && bricksForPlayerTwo.size() != 0){
-            System.out.println("Player 1 wins!");
-        }else{
-            System.out.println("Player 2 wins!");
+            if (bricksForPlayerOne.size() == 0 && bricksForPlayerTwo.size() != 0) {
+                System.out.println("Player 1 wins!");
+            } else {
+                System.out.println("Player 2 wins!");
+            }
         }
     }
 }
